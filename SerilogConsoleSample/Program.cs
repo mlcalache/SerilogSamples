@@ -22,7 +22,10 @@ namespace SerilogConsoleSample
 
             Log.Logger = new LoggerConfiguration()
                             .WriteTo.MSSqlServer(connectionString, tableName, autoCreateSqlTable: true)
+                            .MinimumLevel.Debug()
                             .CreateLogger();
+
+            var isDebugEnabled = Log.IsEnabled(Serilog.Events.LogEventLevel.Debug);
 
             Log.Information("Hello, world!");
 
@@ -80,6 +83,8 @@ namespace SerilogConsoleSample
                             .WriteTo.Console()
                             .WriteTo.File("logs\\myapp.txt", rollingInterval: RollingInterval.Day)
                             .CreateLogger();
+
+            var isDebugEnabled = Log.Logger.IsEnabled(Serilog.Events.LogEventLevel.Debug);
 
             Log.Information("Hello, world!");
 
